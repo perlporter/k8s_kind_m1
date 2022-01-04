@@ -9,7 +9,7 @@ spec:
   - name: giropops-app
     image: jxlwqq/http-echo:latest
     args:
-    - "-text=CLARO-QUE-FUNCIONA-GIROPOPS"
+    - "--text=CLARO-QUE-FUNCIONA-GIROPOPS"
 ---
 kind: Service
 apiVersion: v1
@@ -20,7 +20,7 @@ spec:
     app: giropops
   ports:
   # Default port used by the image  
-    - port: 5678
+    - port: 8080
 ---
 kind: Pod
 apiVersion: v1
@@ -33,7 +33,7 @@ spec:
   - name: strigus-app
     image: jxlwqq/http-echo:latest
     args:
-    - "-text=FUNCIONOU-STRIGUS"
+    - "--text=FUNCIONOU-STRIGUS"
 ---
 kind: Service
 apiVersion: v1
@@ -44,7 +44,7 @@ spec:
     app: strigus
   ports:
   # Default port used by the image  
-    - port: 5678
+    - port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -60,11 +60,11 @@ spec:
           service:
             name: giropops-service
             port: 
-              number: 5678
+              number: 8080
       - pathType: Prefix
         path: "/strigus"
         backend:
           service:
             name: strigus-service
             port: 
-              number: 5678
+              number: 8080
